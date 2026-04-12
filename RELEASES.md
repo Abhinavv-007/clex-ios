@@ -1,12 +1,12 @@
 # iOS Releases
 
-## v1.9.2
+## v1.9.3
 
 Release notes:
 
-- Cleaned placeholder/demo content across the active Home, Vault, Chain, Settings, Help, and Developer screens.
-- Kept the glass-style SwiftUI shell while replacing random values with stable product copy.
-- Bumped the iOS app to v1.9.2 / build 192 and aligned the repo metadata with the new release.
+- Fixed the duplicate-ID warning in the Home receive code boxes.
+- Replaced raw developer `Link` actions with safe URL handling and copy fallback for mail addresses on simulator/device setups without Mail.
+- Bumped the iOS app to v1.9.3 / build 193 and aligned the repo metadata with the fix.
 
 Validation:
 

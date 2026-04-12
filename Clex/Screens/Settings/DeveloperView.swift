@@ -1,7 +1,11 @@
 import SwiftUI
+import UIKit
 
 struct DeveloperView: View {
     @Environment(\.clexPalette) private var palette
+    @Environment(\.openURL) private var openURL
+    @State private var alertMessage = ""
+    @State private var showAlert = false
 
     private let socials: [(logo: String, label: String, url: String)] = [
         ("IG", "Instagram", "https://www.instagram.com/abhinavv.007/"),
@@ -45,7 +49,9 @@ struct DeveloperView: View {
                         ClexSectionTitle(title: "SOCIAL")
                         HStack(spacing: 12) {
                             ForEach(Array(socials.enumerated()), id: \.offset) { _, item in
-                                Link(destination: URL(string: item.url)!) {
+                                Button {
+                                    openDeveloperURL(item.url)
+                                } label: {
                                     HStack(spacing: 10) {
                                         Text(item.logo)
                                             .font(.system(size: 14, weight: .black, design: .rounded))
@@ -77,7 +83,9 @@ struct DeveloperView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         ClexSectionTitle(title: "EMAILS")
                         ForEach(Array(emails.enumerated()), id: \.offset) { _, item in
-                            Link(destination: URL(string: item.url)!) {
+                            Button {
+                                openDeveloperURL(item.url, fallbackCopy: item.value)
+                            } label: {
                                 DeveloperLinkRow(item: item)
                             }
                             .buttonStyle(.plain)
@@ -90,7 +98,9 @@ struct DeveloperView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         ClexSectionTitle(title: "EXPERIENCE / WEBSITES")
                         ForEach(Array(websites.enumerated()), id: \.offset) { _, item in
-                            Link(destination: URL(string: item.url)!) {
+                            Button {
+                                openDeveloperURL(item.url)
+                            } label: {
                                 DeveloperLinkRow(item: item)
                             }
                             .buttonStyle(.plain)
@@ -118,6 +128,25 @@ struct DeveloperView: View {
         }
         .background(ClexGlassBackground())
         .toolbar(.hidden, for: .navigationBar)
+        .alert("Link Handling", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(alertMessage)
+        }
+    }
+
+    private func openDeveloperURL(_ urlString: String, fallbackCopy: String? = nil) {
+        guard let url = URL(string: urlString) else { return }
+        openURL(url) { accepted in
+            guard !accepted else { return }
+            if let fallbackCopy {
+                UIPasteboard.general.string = fallbackCopy
+                alertMessage = "\(fallbackCopy) copied. The required app is unavailable on this device."
+            } else {
+                alertMessage = "This link could not be opened on this device."
+            }
+            showAlert = true
+        }
     }
 }
 

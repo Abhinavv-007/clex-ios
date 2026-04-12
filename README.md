@@ -6,8 +6,8 @@ This repository contains the active iOS app only. It can be opened directly in X
 
 ## Current Release
 
-- Version: `1.9.2`
-- Build: `192`
+- Version: `1.9.3`
+- Build: `193`
 - Bundle ID: `in.clex.mobile`
 - Minimum iOS: `17.0`
 - Language/UI: Swift 5 + SwiftUI
@@ -15,7 +15,7 @@ This repository contains the active iOS app only. It can be opened directly in X
 ## What The App Includes
 
 - HOME / VAULT / CHAIN / SETTINGS tab shell
-- Apple-style translucent glass UI aligned with the Android v1.9.2 app direction
+- Apple-style translucent glass UI aligned with the Android v1.9.x app direction
 - Clex logo asset on the Home workspace header
 - Vault notes, secret, cloud, and vault+ configuration screens
 - Chain workflow, chain presets, and verifiable-transfer presentation

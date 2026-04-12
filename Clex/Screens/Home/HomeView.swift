@@ -127,8 +127,8 @@ private struct HomeReceivePanel: View {
                 .foregroundStyle(palette.textSecondary)
 
             HStack(spacing: 10) {
-                ForEach(Array(repeating: "—", count: 6), id: \.self) { char in
-                    Text(char)
+                ForEach(0..<6, id: \.self) { _ in
+                    Text("—")
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundStyle(palette.textPrimary)
                         .frame(maxWidth: .infinity)
