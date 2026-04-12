@@ -40,7 +40,7 @@ struct SettingsView: View {
                 ClexGlassCard {
                     VStack(alignment: .leading, spacing: 12) {
                         ClexSectionTitle(title: "VERSION")
-                        Text("Clex iOS parity build aligned with Android v\(AppRelease.versionName).")
+                        Text("Native iOS glass shell with aligned product copy and release metadata for v\(AppRelease.versionName).")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundStyle(palette.textSecondary)
                     }

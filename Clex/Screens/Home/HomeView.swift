@@ -29,7 +29,7 @@ struct HomeView: View {
                         Circle()
                             .fill(palette.accent)
                             .frame(width: 8, height: 8)
-                        Text("READY")
+                        Text("WORKSPACE")
                             .font(.system(size: 12, weight: .semibold, design: .rounded))
                             .tracking(0.8)
                     }
@@ -75,15 +75,15 @@ struct HomeView: View {
                 .clexReveal(2)
 
                 HStack(spacing: 14) {
-                    ClexMetricCard(title: "TRANSFER SPEED", value: "54 MB/s")
-                    ClexMetricCard(title: "ACTIVE ROUTE", value: "P2P")
+                    ClexMetricCard(title: "TRANSFER ROUTE", value: "DIRECT")
+                    ClexMetricCard(title: "PRIVACY MODE", value: "LOCAL")
                 }
                 .clexReveal(3)
 
                 ClexGlassCard {
                     VStack(alignment: .leading, spacing: 14) {
                         ClexSectionTitle(title: "WHY CLEX")
-                        Text("The Android app already moved to a cleaner direct-transfer workflow. This iOS build now follows the same structure instead of the old flat landing screen.")
+                        Text("Clex keeps send, receive, tools, vault, and chain flows in one mobile workspace without forcing a cloud-first workflow.")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundStyle(palette.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)
@@ -127,7 +127,7 @@ private struct HomeReceivePanel: View {
                 .foregroundStyle(palette.textSecondary)
 
             HStack(spacing: 10) {
-                ForEach(["A", "4", "K", "9", "Q", "2"], id: \.self) { char in
+                ForEach(Array(repeating: "—", count: 6), id: \.self) { char in
                     Text(char)
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundStyle(palette.textPrimary)
@@ -138,7 +138,7 @@ private struct HomeReceivePanel: View {
                 }
             }
 
-            ClexPrimaryButton(title: "CONNECT", systemImage: "qrcode.viewfinder") {}
+            ClexPrimaryButton(title: "SCAN OR ENTER CODE", systemImage: "qrcode.viewfinder") {}
         }
     }
 }

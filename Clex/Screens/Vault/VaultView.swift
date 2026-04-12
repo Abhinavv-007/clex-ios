@@ -54,7 +54,7 @@ private struct VaultNotesPanel: View {
                 ClexGlassCard(padding: 16) {
                     VStack(alignment: .leading, spacing: 6) {
                         ClexSectionTitle(title: "MY NOTES")
-                        Text("2 LOCAL")
+                        Text("PRIVATE")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundStyle(palette.textPrimary)
                     }
@@ -63,7 +63,7 @@ private struct VaultNotesPanel: View {
                 ClexGlassCard(padding: 16) {
                     VStack(alignment: .leading, spacing: 6) {
                         ClexSectionTitle(title: "NEW NOTE")
-                        Text("CREATE")
+                        Text("WRITE")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundStyle(palette.textPrimary)
                     }
@@ -74,13 +74,13 @@ private struct VaultNotesPanel: View {
 
             ClexGlassCard {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Quarterly vault audit")
+                    Text("Encrypted notes live here")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
                         .foregroundStyle(palette.textPrimary)
-                    Text("Recovery key rotated. Backup sync healthy across two devices.")
+                    Text("Use Vault notes for private drafts, recovery details, and device-safe text that stays out of the public chain.")
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .foregroundStyle(palette.textSecondary)
-                    Text("UPDATED 29 MIN AGO")
+                    Text("LOCAL FIRST")
                         .font(.system(size: 12, weight: .bold, design: .rounded))
                         .tracking(1.4)
                         .foregroundStyle(palette.accent)
@@ -90,13 +90,13 @@ private struct VaultNotesPanel: View {
 
             ClexGlassCard {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Device pairing notes")
+                    Text("Sync when you decide")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
                         .foregroundStyle(palette.textPrimary)
-                    Text("Sync code copied to secondary device. Cloud backup standing by.")
+                    Text("Cloud backup and multi-device sync can be enabled from Vault+ without exposing note contents publicly.")
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .foregroundStyle(palette.textSecondary)
-                    Text("UPDATED 2 H AGO")
+                    Text("OPTIONAL CLOUD")
                         .font(.system(size: 12, weight: .bold, design: .rounded))
                         .tracking(1.4)
                         .foregroundStyle(palette.accent)
@@ -122,8 +122,8 @@ private struct VaultSecretPanel: View {
 
             ClexGlassCard {
                 HStack {
-                    ClexMetricCard(title: "DEFAULT EXPIRY", value: "24H")
-                    ClexMetricCard(title: "SECURE VIEW", value: "ON")
+                    ClexMetricCard(title: "DEFAULT EXPIRY", value: "CUSTOM")
+                    ClexMetricCard(title: "REVEAL FLOW", value: "CODE + LINK")
                 }
             }
             .clexReveal(3)
@@ -145,8 +145,8 @@ private struct VaultCloudPanel: View {
             .clexReveal(2)
 
             HStack(spacing: 14) {
-                ClexMetricCard(title: "DEVICES", value: "2")
-                ClexMetricCard(title: "STATUS", value: "READY")
+                ClexMetricCard(title: "SYNC MODE", value: "MANUAL")
+                ClexMetricCard(title: "BACKUP", value: "OPTIONAL")
             }
             .clexReveal(3)
         }
@@ -157,12 +157,12 @@ private struct VaultPlusPanel: View {
     @Environment(\.clexPalette) private var palette
 
     private let items = [
-        "ACCOUNT",
-        "ENCRYPTION",
-        "SYNC CODE",
-        "DEFAULT EXPIRY",
-        "CLOUD BACKUP",
-        "ACCOUNT DEVICES"
+        ("ACCOUNT", "Profile, identity, and account-backed vault state."),
+        ("ENCRYPTION", "Choose how vault content is protected before export or sync."),
+        ("SYNC CODE", "Pair a second device using the same private vault identity."),
+        ("DEFAULT EXPIRY", "Set secret-link defaults for fast repeat sharing."),
+        ("CLOUD BACKUP", "Control encrypted backup cadence and restore behavior."),
+        ("ACCOUNT DEVICES", "Review trusted devices with vault access.")
     ]
 
     var body: some View {
@@ -171,10 +171,10 @@ private struct VaultPlusPanel: View {
                 ClexGlassCard {
                     HStack {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text(item)
+                            Text(item.0)
                                 .font(.system(size: 16, weight: .bold, design: .rounded))
                                 .foregroundStyle(palette.textPrimary)
-                            Text("Tap to configure this vault setting.")
+                            Text(item.1)
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
                                 .foregroundStyle(palette.textSecondary)
                         }

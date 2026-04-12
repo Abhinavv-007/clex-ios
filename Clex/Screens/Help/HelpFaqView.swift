@@ -9,7 +9,7 @@ struct HelpFaqView: View {
         ("WHAT IS THE VAULT FOR?", "Vault stores encrypted notes, secret links, sync settings, and account protection state."),
         ("WHAT DOES THE CHAIN STORE?", "Only verification metadata and hashes. The file itself never becomes public chain content."),
         ("CAN I CHANGE THE THEME?", "Yes. Theme mode is stored locally and applied across the app shell."),
-        ("WHY DID THE IOS APP CHANGE?", "This build replaces the older flat shell with the newer Android-aligned structure and motion system.")
+        ("CAN I REPLAY ONBOARDING?", "Yes. Use the onboarding reset entry in Settings when you want to walk through the intro flow again.")
     ]
 
     var body: some View {

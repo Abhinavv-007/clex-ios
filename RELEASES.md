@@ -1,13 +1,12 @@
 # iOS Releases
 
-## v1.9.1
+## v1.9.2
 
 Release notes:
 
-- Added the real Clex logo asset to the iOS app and placed it on the Home workspace header.
-- Updated About the Developer with Abhinav Raj, Instagram, LinkedIn, current Clex emails, and experience websites.
-- Published the active glass-style SwiftUI parity app as the standalone `clex-ios` repository.
-- Kept version metadata aligned with Android v1.9.1 / build 191.
+- Cleaned placeholder/demo content across the active Home, Vault, Chain, Settings, Help, and Developer screens.
+- Kept the glass-style SwiftUI shell while replacing random values with stable product copy.
+- Bumped the iOS app to v1.9.2 / build 192 and aligned the repo metadata with the new release.
 
 Validation:
 

@@ -105,7 +105,7 @@ struct DeveloperView: View {
                         Text("v\(AppRelease.versionName) (\(AppRelease.buildNumber))")
                             .font(.system(size: 22, weight: .bold, design: .rounded))
                             .foregroundStyle(palette.textPrimary)
-                        Text("Aligned with the Android 1.9.1 release for developer contact details and release metadata.")
+                        Text("Current mobile release with glass-shell refinement, cleaned product copy, and aligned developer contact details.")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundStyle(palette.textSecondary)
                     }

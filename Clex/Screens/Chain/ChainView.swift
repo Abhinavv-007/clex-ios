@@ -28,8 +28,8 @@ struct ChainView: View {
                 .clexReveal(1)
 
                 HStack(spacing: 14) {
-                    ClexMetricCard(title: "LIVE SESSIONS", value: "20")
-                    ClexMetricCard(title: "CHAINS", value: "12")
+                    ClexMetricCard(title: "LEDGER", value: "LIVE")
+                    ClexMetricCard(title: "PAYLOAD", value: "PRIVATE")
                 }
                 .clexReveal(2)
 
@@ -86,7 +86,7 @@ struct ChainView: View {
                                         .font(.system(size: 15, weight: .bold, design: .rounded))
                                         .foregroundStyle(palette.textPrimary)
                                     if selectedChain == item {
-                                        Text("Selected chain ready for the next transfer.")
+                                        Text("Selected preset can drive the next transfer workflow.")
                                             .font(.system(size: 13, weight: .medium, design: .rounded))
                                             .foregroundStyle(palette.accent)
                                     }
