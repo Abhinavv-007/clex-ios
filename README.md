@@ -6,8 +6,8 @@ This repository contains the active iOS app only. It can be opened directly in X
 
 ## Current Release
 
-- Version: `1.9.3`
-- Build: `193`
+- Version: `1.9.5`
+- Build: `195`
 - Bundle ID: `in.clex.mobile`
 - Minimum iOS: `17.0`
 - Language/UI: Swift 5 + SwiftUI

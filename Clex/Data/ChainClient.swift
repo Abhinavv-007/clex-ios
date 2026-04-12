@@ -1,18 +1,5 @@
 import Foundation
 
-// ═══════════════════════════════════════════════════
-//  ChainClient
-//  Thin stub for talking to the deployed Clex backend.
-//  Full transfer + vault + chain logic to be ported
-//  from mobile-frontend-new/app/.../data/ in follow-up.
-//
-//  Endpoints (from mobile-frontend-new/INTEGRATION.md):
-//    • https://clex.in
-//    • https://clex.in/vault/api
-//    • https://clex.in/vault/secret
-//    • wss://signal.clex.in
-// ═══════════════════════════════════════════════════
-
 enum ClexEndpoint {
     static let base   = URL(string: "https://clex.in")!
     static let vault  = URL(string: "https://clex.in/vault/api")!
@@ -20,12 +7,62 @@ enum ClexEndpoint {
     static let signal = URL(string: "wss://signal.clex.in")!
 }
 
-struct ChainEntry: Decodable, Identifiable {
+struct ChainStatsPayload: Decodable, Hashable {
+    let totalSessions: Int
+    let totalChains: Int
+    let completedSessions: Int
+}
+
+struct ChainFileMeta: Decodable, Hashable {
+    let category: String
+    let type: String
+    let size: Int64
+    let hash: String?
+}
+
+struct ChainExplorerSession: Decodable, Identifiable, Hashable {
     let id: String
-    let hash: String
+    let senderChainId: String
+    let receiverChainId: String?
     let route: String
-    let durationMs: Int
+    let files: [ChainFileMeta]
     let status: String
+    let startedAt: Int64
+    let completedAt: Int64?
+    let durationMs: Int64?
+    let ledgerIndex: Int
+    let recordHash: String
+}
+
+struct ChainSessionEvent: Decodable, Hashable, Identifiable {
+    let id: Int
+    let status: String
+    let ts: Int64
+}
+
+struct ChainSessionDetail: Decodable, Identifiable, Hashable {
+    let id: String
+    let senderChainId: String
+    let receiverChainId: String?
+    let route: String
+    let files: [ChainFileMeta]
+    let status: String
+    let startedAt: Int64
+    let completedAt: Int64?
+    let durationMs: Int64?
+    let ledgerIndex: Int
+    let previousHash: String?
+    let recordHash: String
+    let events: [ChainSessionEvent]
+}
+
+private struct ExplorerResponse: Decodable {
+    let sessions: [ChainExplorerSession]
+}
+
+struct ChainFeed: Hashable {
+    let stats: ChainStatsPayload
+    let sessions: [ChainExplorerSession]
 }
 
 enum ChainClientError: Error {
@@ -37,19 +74,42 @@ enum ChainClientError: Error {
 
 actor ChainClient {
     static let shared = ChainClient()
+
     private let session: URLSession
+    private let decoder: JSONDecoder
 
     init(session: URLSession = .shared) {
         self.session = session
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        self.decoder = decoder
     }
 
-    /// Fetch recent ledger entries. Endpoint shape is a placeholder until
-    /// backend contracts are wired up.
-    func fetchRecentLedger(limit: Int = 20) async throws -> [ChainEntry] {
-        var url = ClexEndpoint.base
-        url.append(path: "chain/recent")
-        url.append(queryItems: [URLQueryItem(name: "limit", value: String(limit))])
+    func fetchFeed(limit: Int = 20) async throws -> ChainFeed {
+        var statsUrl = ClexEndpoint.base
+        statsUrl.append(path: "chain/stats")
 
+        var explorerUrl = ClexEndpoint.base
+        explorerUrl.append(path: "chain/explorer")
+        explorerUrl.append(queryItems: [
+            URLQueryItem(name: "page", value: "1"),
+            URLQueryItem(name: "limit", value: String(limit))
+        ])
+
+        let statsURL = statsUrl
+        let explorerURL = explorerUrl
+        async let stats: ChainStatsPayload = request(statsURL)
+        async let explorer: ExplorerResponse = request(explorerURL)
+        return try await ChainFeed(stats: stats, sessions: explorer.sessions)
+    }
+
+    func fetchSession(id: String) async throws -> ChainSessionDetail {
+        var url = ClexEndpoint.base
+        url.append(path: "chain/session/\(id)")
+        return try await request(url)
+    }
+
+    private func request<T: Decodable>(_ url: URL) async throws -> T {
         do {
             let (data, response) = try await session.data(from: url)
             guard let http = response as? HTTPURLResponse else {
@@ -59,12 +119,12 @@ actor ChainClient {
                 throw ChainClientError.server(status: http.statusCode)
             }
             do {
-                return try JSONDecoder().decode([ChainEntry].self, from: data)
+                return try decoder.decode(T.self, from: data)
             } catch {
                 throw ChainClientError.decoding(error)
             }
-        } catch let e as ChainClientError {
-            throw e
+        } catch let error as ChainClientError {
+            throw error
         } catch {
             throw ChainClientError.transport(error)
         }
