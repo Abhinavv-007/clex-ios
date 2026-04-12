@@ -1,0 +1,35 @@
+name: Clex
+options:
+  deploymentTarget:
+    iOS: 17.0
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: in.clex.mobile
+    SWIFT_VERSION: 5.0
+    TARGETED_DEVICE_FAMILY: 1,2
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_CFBundleDisplayName: Clex
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+    GENERATE_INFOPLIST_FILE: YES
+    ENABLE_PREVIEWS: NO
+    ENABLE_DEBUG_DYLIB: NO
+    MARKETING_VERSION: 1.9.1
+    CURRENT_PROJECT_VERSION: 191
+    LD_RUNPATH_SEARCH_PATHS: ""
+targets:
+  Clex:
+    type: application
+    platform: iOS
+    deploymentTarget: 17.0
+    sources:
+      - path: Clex
+    settings:
+      base:
+        PRODUCT_NAME: Clex
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_ASSET_PATHS: ""
+        ENABLE_PREVIEWS: NO
+        ENABLE_DEBUG_DYLIB: NO
+        LD_RUNPATH_SEARCH_PATHS: ""
